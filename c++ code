@@ -1,0 +1,38 @@
+
+// find all possible combination of coins which make sum=target  or number of ways to make coin sum=target
+
+ class Solution {
+  public:
+
+long long int solve(int arr[],vector<vector<long long int>>&dp,int i,int t){
+    
+   if(t==0)return 1;
+    if(i==0){
+          if(t%arr[0]==0)return 1;
+        else return 0;
+    }
+    
+   
+  if(dp[i][t]!=-1)return dp[i][t];
+  
+  // not take
+  long long int not_take=0+solve(arr,dp,i-1,t);
+  
+  // take 
+  long long int take=0;
+ if(t>=arr[i]) take=solve(arr,dp,i,t-arr[i]);
+
+
+return dp[i][t]=take+not_take; 
+    
+}
+
+  
+long long int count(int arr[], int n, int t) {
+
+   vector<vector<long long int>>dp(n,vector<long long int>(t+1,-1));
+   
+   return solve(arr,dp,n-1,t);
+    }
+    
+};
